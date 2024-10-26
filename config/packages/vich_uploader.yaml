@@ -1,0 +1,42 @@
+vich_uploader:
+    db_driver: orm
+    storage: flysystem
+    mappings:
+        user_uploads:
+            uri_prefix: /uploads/user/uploads
+            #upload_destination: "%kernel.project_dir%/public/uploads/user/uploads"
+            upload_destination: user.upload
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            inject_on_load: true
+            delete_on_update: true
+            delete_on_remove: true
+
+        user_avatar:
+            uri_prefix: /uploads/user/avatar
+            #upload_destination: "%kernel.project_dir%/public/uploads/user/avatar"
+            upload_destination: user.avatar
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            inject_on_load: true
+            delete_on_update: true
+            delete_on_remove: true
+
+        media_object:
+            uri_prefix: /uploads/media
+            upload_destination: media_object
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            inject_on_load: true
+            delete_on_update: true
+            delete_on_remove: true
+
+        user_image:
+            uri_prefix: /uploads/user/images/send
+            #upload_destination: "%kernel.project_dir%/public/uploads/user_images"
+            upload_destination: user.image
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            directory_namer:
+                service: vich_uploader.namer_directory_property
+                options: { property: 'id', transliterate: true } # supposing that the object contains a "slug" property or a "getSlug" method
+            inject_on_load: true
+            delete_on_update: true
+            delete_on_remove: true
+

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="fr" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="_orotqB" resname="vich_uploader.form_label.delete_confirm">
+        <source>vich_uploader.form_label.delete_confirm</source>
+        <target>Supprimer?</target>
+      </trans-unit>
+      <trans-unit id="Zk.KlSD" resname="vich_uploader.link.download">
+        <source>vich_uploader.link.download</source>
+        <target>Télécharger</target>
+      </trans-unit>
+      <trans-unit id="41EeSsc" resname="Veuiller entrer un mot de passe">
+        <source>Veuiller entrer un mot de passe</source>
+        <target>Veuiller entrer un mot de passe</target>
+      </trans-unit>
+      <trans-unit id="T3kNKZU" resname="Les champs du mot de passe doivent correspondre">
+        <source>Les champs du mot de passe doivent correspondre</source>
+        <target>Les champs du mot de passe doivent correspondre</target>
+      </trans-unit>
+      <trans-unit id="J_0NN14" resname="Veuiller entrer une adresse e-mail">
+        <source>Veuiller entrer une adresse e-mail</source>
+        <target>Veuiller entrer une adresse e-mail</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

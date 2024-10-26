@@ -1,0 +1,58 @@
+# Read the documentation at https://github.com/thephpleague/flysystem-bundle/blob/master/docs/1-getting-started.md
+flysystem:
+    storages:
+        default.storage:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/public/uploads'
+                permissions:
+                    file:
+                        public: 0o744
+                        private: 0o700
+                    dir:
+                        public: 0o755
+                        private: 0o700
+            visibility: public # default null. Possible values are 'public' or 'private'
+            directory_visibility: public # default null. Possible values are 'public' or 'private'
+
+        user.avatar:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/public/uploads/user/avatar'
+                permissions:
+                    file:
+                        public: 0o744
+                        private: 0o700
+                    dir:
+                        public: 0o755
+                        private: 0o700
+            visibility: public
+            directory_visibility: public
+
+        user.upload:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/public/uploads/user/uploads'
+                permissions:
+                    file:
+                        public: 0o744
+                        private: 0o700
+                    dir:
+                        public: 0o755
+                        private: 0o700
+            visibility: public
+            directory_visibility: public
+
+        media_object:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/public/uploads/media'
+                permissions:
+                    file:
+                        public: 0o744
+                        private: 0o700
+                    dir:
+                        public: 0o755
+                        private: 0o700
+            visibility: public
+            directory_visibility: public

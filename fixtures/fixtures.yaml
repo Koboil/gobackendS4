@@ -1,0 +1,62 @@
+App\Entity\ReservationStatus:
+    status_draft:
+        name: 'draft'
+        color: "yellow"
+    status_confirmed:
+        name: 'confirmed'
+        color: "green"
+    status_canceled:
+        name: 'canceled'
+        color: "orange"
+    status_completed:
+        name: 'completed'
+        color: "gray"
+    status_unavailable:
+        name: "unavailable"
+        color:  "red"
+App\Entity\User:
+    admin:
+        firstName: 'admin'
+        lastName: 'admin'
+        username: 'admin'
+        email: 'admin@coachapp.com'
+        roles: '[ROLE_ADMIN,ROLE_USER]'
+        isVerified: true
+        password: "admin"
+    user_{1..50}:
+        firstName: 'nom <current()>'
+        lastName: '<name()>'
+        email: '<email()>'
+        roles: '[ROLE_USER]'
+        isVerified: true
+        password: '_1Password*_'
+App\Entity\Company:
+    company_{1..50}:
+        name: 'Company <current()>'
+        state: '<state()>'
+        city: '<city()>'
+        postalCode:  '<postcode()>'
+        country: '<country()>'
+        line1: '<streetAddress()>'
+        isActive: true
+App\Entity\CompanyUser:
+    company_user_{1..30}:
+        company: '@company_<current()>'
+        user: '@user_<current()>'
+        role: "ROLE_ADMIN"
+App\Entity\Service:
+    service_{1..50}:
+        name: '<name()>'
+        description: '<paragraph()>'
+        company:  '@company_<current()>'
+        isActive: true
+App\Entity\Reservation:
+    reservation_{1..50}:
+        service: '@service_<current()>'
+        startAt: '<(new DateTimeImmutable("2024-02-13T12:00:00+00:00"))>'
+        endAt: '<(new DateTimeImmutable("2024-02-13T12:00:00+00:00"))>'
+        note: '<text()>'
+        user: '@user_<current()>'
+        status: '@status_confirmed'
+
+

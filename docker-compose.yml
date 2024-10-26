@@ -1,0 +1,77 @@
+#version: '3'
+
+services:
+    server:
+        container_name: coach_server
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+            target: server
+        volumes:
+            - .:/srv/app
+        links:
+            - php
+        ports:
+            - "8888:80"
+    php:
+        container_name: coach_php
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+            target: php_dev
+        volumes:
+            - ./.docker/php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+            - ~/.config/composer:/home/prod/.composer
+            - .:/srv/app
+    database:
+        image: postgres:15.4-alpine
+        container_name: coach_database
+        environment:
+            POSTGRES_DB: symfony
+            POSTGRES_PASSWORD: root
+            POSTGRES_USER: root
+        volumes:
+            - database_data:/var/lib/postgresql/data:rw
+        ports:
+            - "5434:5432"
+
+    ###> symfony/mailer ###
+    mailer:
+        container_name: coach_mailer
+        image: schickling/mailcatcher
+        ports: ["1025:1025", "1080:1080"]
+###< symfony/mailer ###
+
+###> symfony/mercure-bundle ###
+    mercure:
+        container_name: coach_mercure
+        image: dunglas/mercure
+        restart: unless-stopped
+        environment:
+            # Uncomment the following line to disable HTTPS,
+            SERVER_NAME: '3030:80'
+            MERCURE_PUBLISHER_JWT_KEY: '!ChangeThisMercureHubJWTSecretKey!'
+            MERCURE_SUBSCRIBER_JWT_KEY: '!ChangeThisMercureHubJWTSecretKey!'
+            # Set the URL of your Symfony project (without trailing slash!) as value of the cors_origins directive
+            MERCURE_EXTRA_DIRECTIVES: |
+                cors_origins https://localhost:8000 http://localhost:8000 https://localhost:8888 http://localhost:8888 https://127.0.0.1:8000 http://127.0.0.1:8000
+        # Comment the following line to disable the development mode
+        command: /usr/bin/caddy run --config /etc/caddy/Caddyfile.dev
+        healthcheck:
+            test: [ "CMD", "curl", "-f", "https://localhost/healthz" ]
+            timeout: 5s
+            retries: 5
+            start_period: 60s
+        volumes:
+            - mercure_data:/data
+            - mercure_config:/config
+###< symfony/mercure-bundle ###
+
+volumes:
+    database_data:
+    mercure_data:
+    mercure_config:
